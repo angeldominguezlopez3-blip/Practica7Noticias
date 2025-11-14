@@ -1,10 +1,10 @@
 package com.example.practica7noticias
 
-data class Categoria (
+data class Categoria(
     val nombre: String,
-    val valor: String
+    val valor: String,
+    val iconoResId: Int
 ) {
-
     override fun toString(): String {
         return nombre
     }
@@ -14,31 +14,38 @@ data class Categoria (
             get() = arrayListOf(
                 Categoria(
                     nombre = "Negocios",
-                    valor = "business" // CORRECCIÓN: "Bussines" → "business"
+                    valor = "business",
+                    iconoResId = R.drawable.business_icon
                 ),
                 Categoria(
                     nombre = "Entretenimiento",
-                    valor = "entertainment" // CORRECCIÓN: "Entertainment" → "entertainment"
+                    valor = "entertainment",
+                    iconoResId = R.drawable.entertainment_icon
                 ),
                 Categoria(
                     nombre = "General",
-                    valor = "general"
+                    valor = "general",
+                    iconoResId = R.drawable.general_icon
                 ),
                 Categoria(
                     nombre = "Salud",
-                    valor = "health"
+                    valor = "health",
+                    iconoResId = R.drawable.health_icon
                 ),
                 Categoria(
                     nombre = "Ciencia",
-                    valor = "science"
+                    valor = "science",
+                    iconoResId = R.drawable.science_icon
                 ),
                 Categoria(
                     nombre = "Deportes",
-                    valor = "sports"
+                    valor = "sports",
+                    iconoResId = R.drawable.sports_icon
                 ),
                 Categoria(
                     nombre = "Tecnología",
-                    valor = "technology"
+                    valor = "technology",
+                    iconoResId = R.drawable.technology_icon
                 )
             )
     }

@@ -16,18 +16,18 @@
         android:layout_height="wrap_content"
         android:text="Selecciona una categoría:"
         android:textSize="16sp"
-        android:textColor="#FFFFFF"
+        android:textColor="#3F51B5"
         android:textStyle="bold"
         android:layout_marginBottom="8dp" />
 
     <Spinner
         android:id="@+id/spinner1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="63dp"
         android:layout_marginBottom="24dp"
-        android:text="Categoria"
-        android:textColor="#FFFFFF"
         android:background="@drawable/spinner_background"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
         android:popupBackground="#1E1E1E" />
 
     <androidx.recyclerview.widget.RecyclerView

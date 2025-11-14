@@ -66,25 +66,45 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun configurarSpinner() {
-        // Crear un adaptador personalizado para mostrar los nombres correctamente
-        adaptador1 = object : ArrayAdapter<Categoria>(this, android.R.layout.simple_spinner_item, Categoria.datos) {
+        // Crear un adaptador personalizado con iconos
+        adaptador1 = object : ArrayAdapter<Categoria>(this, R.layout.spinner_item_custom, Categoria.datos) {
             override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-                val view = super.getView(position, convertView, parent) as TextView
-                view.setTextColor(ContextCompat.getColor(context, android.R.color.white))
-                view.text = getItem(position)?.nombre
+                val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.spinner_item_custom, parent, false)
+
+                val categoria = getItem(position)
+                val icon = view.findViewById<ImageView>(R.id.icon)
+                val text = view.findViewById<TextView>(R.id.text)
+
+                categoria?.let {
+                    icon.setImageResource(it.iconoResId)
+                    text.text = it.nombre
+                }
+
                 return view
             }
 
             override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
-                val view = super.getDropDownView(position, convertView, parent) as TextView
-                view.setTextColor(ContextCompat.getColor(context, android.R.color.white))
-                view.setBackgroundColor(ContextCompat.getColor(context, android.R.color.black))
-                view.text = getItem(position)?.nombre
+                val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.spinner_dropdown_item, parent, false)
+
+                val categoria = getItem(position)
+                val icon = view.findViewById<ImageView>(R.id.icon)
+                val text = view.findViewById<TextView>(R.id.text)
+
+                categoria?.let {
+                    icon.setImageResource(it.iconoResId)
+                    text.text = it.nombre
+                }
+
+                // Cambiar fondo cuando está seleccionado
+                view.setBackgroundColor(ContextCompat.getColor(context,
+                    if (position == spn1.selectedItemPosition) R.color.selected_item_color
+                    else android.R.color.transparent))
+
                 return view
             }
         }
 
-        adaptador1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        adaptador1.setDropDownViewResource(R.layout.spinner_dropdown_item)
         spn1.adapter = adaptador1
 
         spn1.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
