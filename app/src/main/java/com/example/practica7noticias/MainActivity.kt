@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ImageView
@@ -12,6 +13,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -39,6 +41,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        // Forzar tema oscuro
+        window.decorView.setBackgroundColor(ContextCompat.getColor(this, android.R.color.black))
+
         setContentView(R.layout.activity_main)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -49,6 +55,9 @@ class MainActivity : AppCompatActivity() {
         inicializarVistas()
         configurarSpinner()
         configurarRecyclerView()
+
+        // Cargar noticias iniciales
+        cargarNoticiasPorCategoria("general")
     }
 
     private fun inicializarVistas() {
@@ -57,7 +66,24 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun configurarSpinner() {
-        adaptador1 = ArrayAdapter<Categoria>(this, android.R.layout.simple_spinner_item, Categoria.datos)
+        // Crear un adaptador personalizado para mostrar los nombres correctamente
+        adaptador1 = object : ArrayAdapter<Categoria>(this, android.R.layout.simple_spinner_item, Categoria.datos) {
+            override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+                val view = super.getView(position, convertView, parent) as TextView
+                view.setTextColor(ContextCompat.getColor(context, android.R.color.white))
+                view.text = getItem(position)?.nombre
+                return view
+            }
+
+            override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
+                val view = super.getDropDownView(position, convertView, parent) as TextView
+                view.setTextColor(ContextCompat.getColor(context, android.R.color.white))
+                view.setBackgroundColor(ContextCompat.getColor(context, android.R.color.black))
+                view.text = getItem(position)?.nombre
+                return view
+            }
+        }
+
         adaptador1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spn1.adapter = adaptador1
 
@@ -144,6 +170,15 @@ class MainActivity : AppCompatActivity() {
                 dialog.dismiss()
             }
             .create()
+
+        // Personalizar el diálogo para tema oscuro
+        alertDialog.window?.setBackgroundDrawableResource(android.R.color.black)
+
+        alertDialog.setOnShowListener {
+            val positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
+            positiveButton.setTextColor(ContextCompat.getColor(this, android.R.color.white))
+            positiveButton.setBackgroundColor(ContextCompat.getColor(this, android.R.color.transparent))
+        }
 
         alertDialog.show()
     }

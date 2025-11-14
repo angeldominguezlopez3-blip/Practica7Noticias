@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
+    android:background="#121212"
     tools:context=".MainActivity">
 
     <TextView
@@ -15,6 +16,7 @@
         android:layout_height="wrap_content"
         android:text="Selecciona una categoría:"
         android:textSize="16sp"
+        android:textColor="#FFFFFF"
         android:textStyle="bold"
         android:layout_marginBottom="8dp" />
 
@@ -22,12 +24,17 @@
         android:id="@+id/spinner1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp" />
+        android:layout_marginBottom="24dp"
+        android:text="Categoria"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/spinner_background"
+        android:popupBackground="#1E1E1E" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewNoticias"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="8dp"
+        android:background="#121212" />
 
 </LinearLayout>

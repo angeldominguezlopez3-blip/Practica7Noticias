@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="12dp"
-    android:background="?android:attr/selectableItemBackground"
+    android:background="@drawable/item_background"
     android:clickable="true"
     android:focusable="true">
 
@@ -24,6 +24,7 @@
         android:layout_weight="1"
         android:text="Descripción de la noticia"
         android:textSize="14sp"
+        android:textColor="#FFFFFF"
         android:maxLines="3"
         android:ellipsize="end" />
 
