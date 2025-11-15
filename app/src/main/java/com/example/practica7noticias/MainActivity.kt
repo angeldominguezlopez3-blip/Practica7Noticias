@@ -66,17 +66,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun configurarSpinner() {
-        // Crear un adaptador personalizado con iconos
+        // Crear un adaptador personalizado con emojis
         adaptador1 = object : ArrayAdapter<Categoria>(this, R.layout.spinner_item_custom, Categoria.datos) {
             override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
                 val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.spinner_item_custom, parent, false)
 
                 val categoria = getItem(position)
-                val icon = view.findViewById<ImageView>(R.id.icon)
+                val emoji = view.findViewById<TextView>(R.id.emoji)
                 val text = view.findViewById<TextView>(R.id.text)
 
                 categoria?.let {
-                    icon.setImageResource(it.iconoResId)
+                    emoji.text = it.emoji
                     text.text = it.nombre
                 }
 
@@ -87,11 +87,11 @@ class MainActivity : AppCompatActivity() {
                 val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.spinner_dropdown_item, parent, false)
 
                 val categoria = getItem(position)
-                val icon = view.findViewById<ImageView>(R.id.icon)
+                val emoji = view.findViewById<TextView>(R.id.emoji)
                 val text = view.findViewById<TextView>(R.id.text)
 
                 categoria?.let {
-                    icon.setImageResource(it.iconoResId)
+                    emoji.text = it.emoji
                     text.text = it.nombre
                 }
 
