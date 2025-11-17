@@ -16,6 +16,7 @@ class NoticiasAdapter(
 
     inner class NoticiaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imagen: ImageView = itemView.findViewById(R.id.imgNoticia)
+        val titulo: TextView = itemView.findViewById(R.id.txtTitulo)
         val descripcion: TextView = itemView.findViewById(R.id.txtDescripcion)
 
         init {
@@ -47,6 +48,9 @@ class NoticiasAdapter(
         } else {
             holder.imagen.setImageResource(R.mipmap.ic_launcher_round)
         }
+
+        // Mostrar título
+        holder.titulo.text = noticia.title ?: "Título no disponible"
 
         // Mostrar descripción
         holder.descripcion.text = noticia.description ?: "Descripción no disponible"
