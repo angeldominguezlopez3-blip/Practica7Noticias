@@ -178,11 +178,21 @@ class MainActivity : AppCompatActivity() {
                 .placeholder(R.mipmap.ic_launcher_round)
                 .error(R.mipmap.ic_launcher_round)
                 .into(imageView)
+        } else {
+            imageView.setImageResource(R.mipmap.ic_launcher_round)
         }
 
-        // Configurar título y contenido
+        // Configurar título
         titulo.text = noticia.title ?: "Título no disponible"
-        contenido.text = noticia.content ?: noticia.description ?: "Contenido no disponible"
+
+        // Configurar contenido - USAR el campo "content"
+        val contenidoTexto = if (!noticia.content.isNullOrEmpty()) {
+            noticia.content.replace(Regex("\\[\\+\\d+ chars\\]"), "").trim()
+        } else {
+            noticia.description ?: "Contenido no disponible"
+        }
+
+        contenido.text = contenidoTexto
 
         val alertDialog = AlertDialog.Builder(this)
             .setView(dialogView)
@@ -190,15 +200,6 @@ class MainActivity : AppCompatActivity() {
                 dialog.dismiss()
             }
             .create()
-
-        // Personalizar el diálogo para tema oscuro
-        alertDialog.window?.setBackgroundDrawableResource(android.R.color.black)
-
-        alertDialog.setOnShowListener {
-            val positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
-            positiveButton.setTextColor(ContextCompat.getColor(this, android.R.color.white))
-            positiveButton.setBackgroundColor(ContextCompat.getColor(this, android.R.color.transparent))
-        }
 
         alertDialog.show()
     }
